@@ -39,3 +39,8 @@ Maan lo agar tumhare paas pehle se kuch Pods hain jo app: backend label rakhte h
 
 <!-- cadvisor and metrices -->
 https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+
+
+<!-- argocd installl-->
+https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
