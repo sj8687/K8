@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: shreyash8687/backend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: port
+
+
+
+
+# ---  # if there is any sensitive data we can use secret
+
+# - name: database_url
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: backend-config
+#                   key: database_url                  
+
+
+
+
+#--- volumeMounts: (for secret as file such as .env file)
+
+# -name: backend-secret-volume
+#  image: shreyash8687/backend-secretvolume:1
+#  ports:
+#    - containerPort: 3000    
+#    volumeMounts:
+#       - name:env-file
+#         readOnly: true
+#         mouthPath: /app/.secret
+
+#       volumes:
+#         - name: env-file
+#           secret:
+#             secretName: backend-config  #secret name

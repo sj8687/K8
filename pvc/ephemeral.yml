@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volume-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: volume-app
+  template:
+    metadata:
+      labels:
+        app: volume-app
+    spec:
+      containers:
+        - name: writer
+          image: busybox
+          command: ["/bin/sh", "-c", "echo 'Writing data' > /data/hello.txt; sleep 3600"]
+          volumeMounts:
+            - name: my-ephemeral-volume
+              mountPath: /data
+
+        - name: reader
+          image: busybox
+          command: ["/bin/sh", "-c", "cat /data/hello.txt; sleep 3600"]
+          volumeMounts:
+            - name: my-ephemeral-volume
+              mountPath: /data
+
+      volumes:
+        - name: my-ephemeral-volume
+          emptyDir: {}

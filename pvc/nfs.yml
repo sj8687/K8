@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  nfs-server:
+    image: itsthenetwork/nfs-server-alpine:latest
+    container_name: nfs-server
+    privileged: true
+    environment:
+      - SHARED_DIRECTORY: /exports
+
+    volumes:
+      - ./data/exports:/exports:rw
+
+    ports:
+      - "2049:2049" 
+
+    restart: unless-stopped
+
+
+# run on the aws(EC2) instance
