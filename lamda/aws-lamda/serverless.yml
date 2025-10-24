@@ -1,0 +1,23 @@
+org: shreyash8687
+app: aws
+service: aws-lamda
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+
+functions:
+  hellosj:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+  hiisj:
+    handler: hii.hii
+    events:
+      - httpApi:
+          path: /hi
+          method: get
